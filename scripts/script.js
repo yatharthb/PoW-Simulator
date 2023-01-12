@@ -8,8 +8,8 @@ const failureMessage = document.createElement("p");
 failureMessage.setAttribute("id", "failure-message");
 document.body.appendChild(failureMessage);
 
-const nonce = Math.floor(Math.random() * 999999);
-const difficulty = 100000;
+let nonce = Math.floor(Math.random() * 999999);
+let difficulty = 100000;
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
   const input = parseInt(numberInput.value);
@@ -20,6 +20,8 @@ submitButton.addEventListener("click", (e) => {
     setTimeout(() => {
       successMessage.style.display = "none";
     }, 5000);
+    nonce = Math.floor(Math.random() * 999999);
+    difficulty = Math.max(difficulty * 0.9, 10);
   } else {
     failureMessage.textContent = "Failure";
     failureMessage.style.color = "red";
@@ -27,11 +29,7 @@ submitButton.addEventListener("click", (e) => {
     setTimeout(() => {
       failureMessage.style.display = "none";
     }, 5000);
+    difficulty = Math.min(difficulty * 1.01, 500000);
   }
+  numberInput.value = "";
 });
-submitButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  console.log(numberInput.value);
-  numberInput.value = '';
-});
-
