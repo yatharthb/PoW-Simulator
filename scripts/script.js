@@ -3,11 +3,10 @@ const numberInput = document.getElementById("number-input");
 const successMessage = document.createElement("p");
 successMessage.setAttribute("id", "success-message");
 document.body.appendChild(successMessage);
-
 const failureMessage = document.createElement("p");
 failureMessage.setAttribute("id", "failure-message");
 document.body.appendChild(failureMessage);
-
+const difficultySpan = document.getElementById("difficulty");
 let nonce = Math.floor(Math.random() * 999999);
 let difficulty = 100000;
 submitButton.addEventListener("click", (e) => {
@@ -22,6 +21,7 @@ submitButton.addEventListener("click", (e) => {
     }, 5000);
     nonce = Math.floor(Math.random() * 999999);
     difficulty = Math.max(difficulty * 0.9, 10);
+    difficultySpan.textContent = difficulty;
   } else {
     failureMessage.textContent = "Failure";
     failureMessage.style.color = "red";
@@ -30,6 +30,7 @@ submitButton.addEventListener("click", (e) => {
       failureMessage.style.display = "none";
     }, 5000);
     difficulty = Math.min(difficulty * 1.01, 500000);
+    difficultySpan.textContent = difficulty;
   }
   numberInput.value = "";
 });
